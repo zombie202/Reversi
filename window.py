@@ -10,7 +10,7 @@ class Window:
     def display():
         width, height = pygame.display.get_window_size()
         background = pygame.transform.scale(pygame.image.load(
-            os.path.join('assets', 'tlo_wieksze.png')), (width, height))
+            os.path.join('assets', 'background.png')), (width, height))
         Window.WIN.blit((background), (0, 0))
 
         pygame.display.update()
