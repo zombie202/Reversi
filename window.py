@@ -1,12 +1,16 @@
 import pygame
-
-
-WIDTH, HEIGHT = 1200, 700
-WIN = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
-pygame.display.set_caption('Reversi')
+import os
 
 
 class Window:
+
+    WIN = pygame.display.set_mode((1200, 700), pygame.RESIZABLE)
+    pygame.display.set_caption('Reversi')
+
     def display():
-        WIN.fill((255, 255, 255))
+        width, height = pygame.display.get_window_size()
+        background = pygame.transform.scale(pygame.image.load(
+            os.path.join('assets', 'tlo_wieksze.png')), (width, height))
+        Window.WIN.blit((background), (0, 0))
+
         pygame.display.update()
