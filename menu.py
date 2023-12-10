@@ -20,7 +20,7 @@ class Menu:
 
         height = Window.height()
 
-        welcome_font = pygame.font.SysFont('comicsans', int(height/6))
+        welcome_font = pygame.font.SysFont('comicsans', int(height/5))
         welcome_text = welcome_font.render(WELCOME, 1, WHITE)
         welcome_height = welcome_text.get_height()
 
@@ -30,7 +30,7 @@ class Menu:
 
         header = height/13 + welcome_height + select_height
 
-        buton_font = pygame.font.SysFont('comicsans', int(height/14))
+        buton_font = pygame.font.SysFont('comicsans', int(height/10))
         buton_1_text = buton_font.render(BUTON_1, 1, WHITE)
         buton_2_text = buton_font.render(BUTON_2, 1, WHITE)
         buton_3_text = buton_font.render(BUTON_3, 1, WHITE)
@@ -65,7 +65,7 @@ class Menu:
         Window.WIN.blit(welcome_text, (Menu.middle(welcome_text), height/13))
         Window.WIN.blit(
             select_text,
-            (Menu.middle(select_text), height/13 + welcome_height)
+            (Menu.middle(select_text), height/13 + welcome_height + height/60)
             )
         Window.WIN.blit(buton_1_text, (multiplayer.x, multiplayer.y))
         Window.WIN.blit(buton_2_text, (solo.x, solo.y))
