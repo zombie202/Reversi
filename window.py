@@ -14,7 +14,8 @@ class Window:
         return pygame.display.get_window_size()[1]
 
     def background():
-        background = pygame.transform.scale(pygame.image.load(
-            os.path.join('assets', 'background.png')),
-            (Window.width(), Window.height()))
+        background = pygame.transform.scale(
+            pygame.image.load(os.path.join('assets', 'background.png')),
+            (Window.width(), Window.height())
+            )
         Window.WIN.blit((background), (0, 0))
