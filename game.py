@@ -1,5 +1,5 @@
 import pygame
-from window import Window
+from menu import Menu
 
 
 class Game:
@@ -11,5 +11,5 @@ class Game:
             if event.type == pygame.QUIT:
                 run = False
 
-        Window.display()
+        Menu.display()
     pygame.quit()
