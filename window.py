@@ -4,18 +4,24 @@ import os
 
 class Window:
 
-    WIN = pygame.display.set_mode((1200, 700), pygame.RESIZABLE)
-    pygame.display.set_caption('Reversi')
+    def __init__(self):
+        pygame.init()
+        pygame.display.set_caption('Reversi')
+        self.WIN = pygame.display.set_mode((1200, 700), pygame.RESIZABLE)
+        self.image = pygame.image.load(
+            os.path.join('assets', 'background.png'))
 
-    def width():
+    @property
+    def width(self):
         return pygame.display.get_window_size()[0]
 
-    def height():
+    @property
+    def height(self):
         return pygame.display.get_window_size()[1]
 
-    def background():
+    def display(self):
         background = pygame.transform.scale(
-            pygame.image.load(os.path.join('assets', 'background.png')),
-            (Window.width(), Window.height())
-            )
-        Window.WIN.blit((background), (0, 0))
+            self.image,
+            (self.width, self.height))
+
+        self.WIN.blit((background), (0, 0))
