@@ -64,14 +64,16 @@ class Menu(Window):
     def solo_rect(self):
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_2)),
-            self.header + 2*self.space_btw_buttons + self.button_height(BUTTON_1),
+            self.header + 2*self.space_btw_buttons
+            + self.button_height(BUTTON_1),
             self.button_width(BUTTON_2),
             self.button_height(BUTTON_2))
 
     def computer_rect(self):
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_3)),
-            self.header + 3*self.space_btw_buttons + 2*self.button_height(BUTTON_1),  # I can multiply button height times 2, because they all have the same font
+            self.header + 3*self.space_btw_buttons  # I can multiply button height times 2,
+            + 2*self.button_height(BUTTON_1),       # because they all have the same font
             self.button_width(BUTTON_3),
             self.button_height(BUTTON_3))
 
@@ -89,7 +91,8 @@ class Menu(Window):
 
     @property
     def space_btw_buttons(self):
-        return (self.window.height - self.header - 3*self.button_height(BUTTON_1))/4
+        return (self.window.height - self.header
+                - 3*self.button_height(BUTTON_1))/4
 
     def display(self):
 
@@ -103,7 +106,8 @@ class Menu(Window):
             self.select_text,
             (
                 self.middle(self.select_text),
-                self.window.height/13 + self.welcome_height + self.window.height/60))
+                self.window.height/13 + self.welcome_height
+                + self.window.height/60))
 
         multiplayer = self.multi_rect()
         self.multiplayer.update(multiplayer)
@@ -134,4 +138,3 @@ class Menu(Window):
             pass
         if self.computer.collidepoint(mouse_pos) and mouse_clicked:
             pass
-
