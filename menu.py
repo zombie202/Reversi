@@ -1,6 +1,5 @@
 import pygame
 from window import Window
-pygame.font.init()
 
 
 WHITE = (255, 255, 255)
@@ -15,6 +14,7 @@ class Menu(Window):
 
     def __init__(self):
 
+        pygame.font.init()
         self.window = Window()
 
         welcome_font = pygame.font.SysFont(
@@ -29,13 +29,8 @@ class Menu(Window):
 
         self.select_text = select_font.render(SELECT, 1, WHITE)
 
-        # player vs player
         self.multiplayer = self.multi_rect()
-
-        # player vs computer
         self.solo = self.solo_rect()
-
-        # computer vs computer
         self.computer = self.computer_rect()
 
     def middle(self, text):
@@ -55,6 +50,7 @@ class Menu(Window):
         return self.button_text(button).get_height()
 
     def multi_rect(self):
+        # player vs player
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_1)),
             self.header + self.space_btw_buttons,
@@ -62,6 +58,7 @@ class Menu(Window):
             self.button_height(BUTTON_1))
 
     def solo_rect(self):
+        # player vs computer
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_2)),
             self.header + 2*self.space_btw_buttons
@@ -70,6 +67,7 @@ class Menu(Window):
             self.button_height(BUTTON_2))
 
     def computer_rect(self):
+        # computer vs computer
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_3)),
             self.header + 3*self.space_btw_buttons  # I can multiply button height times 2,
