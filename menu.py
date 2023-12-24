@@ -70,8 +70,10 @@ class Menu(Window):
         # computer vs computer
         return pygame.Rect(
             self.middle(self.button_text(BUTTON_3)),
-            self.header + 3*self.space_btw_buttons  # I can multiply button height times 2,
-            + 2*self.button_height(BUTTON_1),       # because they all have the same font
+            # I can multiply button height times 2,
+            # because they all have the same font
+            self.header + 3*self.space_btw_buttons
+            + 2*self.button_height(BUTTON_1),
             self.button_width(BUTTON_3),
             self.button_height(BUTTON_3))
 
@@ -126,13 +128,3 @@ class Menu(Window):
             (self.computer.x, self.computer.y))
 
         pygame.display.update()
-
-    def running(self, game_mode, menu_running, board_running):
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_clicked = pygame.mouse.get_pressed()[0]
-        if self.multiplayer.collidepoint(mouse_pos) and mouse_clicked:
-            pass
-        if self.solo.collidepoint(mouse_pos) and mouse_clicked:
-            pass
-        if self.computer.collidepoint(mouse_pos) and mouse_clicked:
-            pass
