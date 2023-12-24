@@ -11,6 +11,7 @@ LIGHT_RED = (255, 100, 100)
 LIGHT_GREY = (170, 170, 170)
 SELECT = 'Please select board size'
 BACK = 'BACK'
+CONTINUE = 'CONTINUE'
 
 
 class BoardSize(Window):
@@ -37,7 +38,13 @@ class BoardSize(Window):
             int(self.back_height * 1.5))
         self.back_text = back_font.render(BACK, 1, WHITE)
 
+        continue_font = pygame.font.SysFont(
+            'comicsans',
+            int(self.back_height * 1.5))
+        self.continue_text = continue_font.render(CONTINUE, 1, WHITE)
+
         self.back_button = self.back_rect()
+        self.continue_button = self.continue_rect()
         self.board_show = self.board_rect()
 
         self.input_rect_column = self.input_column_rect()
@@ -54,6 +61,13 @@ class BoardSize(Window):
             height - width/60 - self.back_height,
             self.back_width + self.back_text.get_width(),
             self.back_height)
+
+    def continue_rect(self):
+        return pygame.Rect(
+            self.back_button.right - self.continue_text.get_width(),
+            self.back_button.top - self.continue_text.get_height(),
+            self.continue_text.get_width(),
+            self.continue_text.get_height())
 
     def board_rect(self):
         width = self.window.width
@@ -100,6 +114,14 @@ class BoardSize(Window):
                 'ok' if box.active is False else 'not ok')
         return (False if 'not ok' in check_list else True)
 
+    def get_column_number(self):
+        if self.input_box_not_wrong() and self.input_box_not_active():
+            return int(self.input_column.text)
+
+    def get_row_number(self):
+        if self.input_box_not_wrong() and self.input_box_not_active():
+            return int(self.input_row.text)
+
     def display(self):
 
         self.window.display()
@@ -125,7 +147,7 @@ class BoardSize(Window):
         # updating rectangle size
         board_show = self.board_rect()
         self.board_show.update(board_show)
-        # checks if input box has correct value inside
+        # checks if input box has correct value inside and is not empty
         if self.input_box_not_wrong() and self.input_box_not_active():
             row = int(self.input_row.text)
             column = int(self.input_column.text)
@@ -142,6 +164,7 @@ class BoardSize(Window):
                     (
                         self.board_show.width/column,
                         self.board_show.height/column))
+            # display preview of the board
             for col in range(column):
                 for ro in range(row):
                     self.window.WIN.blit(
@@ -161,6 +184,15 @@ class BoardSize(Window):
         # displaying input boxes
         for box in self.input_box:
             box.display(self.window.WIN)
+
+        # updating rectangle size and displaying continue button
+        continue_rect = self.continue_rect()
+        self.continue_button.update(continue_rect)
+        if self.input_box_not_wrong() and self.input_box_not_active():
+            self.window.WIN.blit(
+                self.continue_text,
+                (self.continue_button.x, self.continue_button.y)
+            )
 
         pygame.display.update()
 
