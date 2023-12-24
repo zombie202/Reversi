@@ -11,6 +11,9 @@ BUTTON_3 = 'Computer vs Computer'
 
 
 class Menu(Window):
+    """
+    Menu class displays menu window.
+    """
 
     def __init__(self):
 
@@ -34,9 +37,11 @@ class Menu(Window):
         self.computer = self.computer_rect()
 
     def middle(self, text):
+        # centers the text
         return ((self.window.width - text.get_width())/2)
 
     def button_text(self, text):
+        # initializes button font and text
         button_font = pygame.font.SysFont(
             'comicsans',
             int(self.window.height/10))
@@ -44,11 +49,14 @@ class Menu(Window):
         return button_font.render(text, 1, WHITE)
 
     def button_width(self, button):
+        # return button width
         return self.button_text(button).get_width()
 
     def button_height(self, button):
+        # return button height
         return self.button_text(button).get_height()
 
+    # creates rectangle, needed because of different window size
     def multi_rect(self):
         # player vs player
         return pygame.Rect(
@@ -76,6 +84,7 @@ class Menu(Window):
             + 2*self.button_height(BUTTON_1),
             self.button_width(BUTTON_3),
             self.button_height(BUTTON_3))
+    # end of creating rectangles
 
     @property
     def welcome_height(self):
@@ -98,10 +107,12 @@ class Menu(Window):
 
         self.window.display()
 
+        # displaying welcome text
         self.window.WIN.blit(
             self.welcome_text,
             (self.middle(self.welcome_text), self.window.height/13))
 
+        # displaying select text
         self.window.WIN.blit(
             self.select_text,
             (
@@ -109,20 +120,26 @@ class Menu(Window):
                 self.window.height/13 + self.welcome_height
                 + self.window.height/60))
 
+        # updating rectangle size
         multiplayer = self.multi_rect()
         self.multiplayer.update(multiplayer)
+        # displaying button
         self.window.WIN.blit(
             self.button_text(BUTTON_1),
             (self.multiplayer.x, self.multiplayer.y))
 
+        # updating rectangle size
         solo = self.solo_rect()
         self.solo.update(solo)
+        # displaying button
         self.window.WIN.blit(
             self.button_text(BUTTON_2),
             (self.solo.x, self.solo.y))
 
+        # updating rectangle size
         computer = self.computer_rect()
         self.computer.update(computer)
+        # displaying button
         self.window.WIN.blit(
             self.button_text(BUTTON_3),
             (self.computer.x, self.computer.y))

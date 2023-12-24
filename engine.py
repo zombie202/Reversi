@@ -4,6 +4,10 @@ from board_size import BoardSize
 
 
 class Engine:
+    """
+    Engine class operates the main game loop,
+    and handles movement beetwen windows.
+    """
 
     def __init__(self):
         self.menu = Menu()
@@ -15,6 +19,7 @@ class Engine:
         menu_running = True
         board_running = False
         game_running = False
+        # initializes main game loop
         while run:
             clock.tick(60)
             mouse_pos = pygame.mouse.get_pos()

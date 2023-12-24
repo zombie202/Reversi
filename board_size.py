@@ -15,6 +15,10 @@ CONTINUE = 'CONTINUE'
 
 
 class BoardSize(Window):
+    """
+    BoardSize class display window where user can choose the of the board,
+    on which game will take place.
+    """
 
     def __init__(self):
 
@@ -53,6 +57,7 @@ class BoardSize(Window):
         self.input_row = InputBox(self.input_rect_row, '8 - 30')
         self.input_box = [self.input_column, self.input_row]
 
+    # creates rectangle, needed because of different window size
     def back_rect(self):
         width = self.window.width
         height = self.window.height
@@ -95,11 +100,14 @@ class BoardSize(Window):
             self.board_show.top + self.board_show.width/2,
             width/10,
             height/15)
+    # end of creating rectangles
 
     def middle(self, text):
+        # centers the text
         return ((self.window.width - text.get_width())/2)
 
     def input_box_not_wrong(self):
+        # checks if input boxes have correct value inside
         check_list = []
         for box in self.input_box:
             check_list.append(
@@ -108,6 +116,7 @@ class BoardSize(Window):
         return (False if 'not ok' in check_list else True)
 
     def input_box_not_active(self):
+        # checks if input boxes is not active
         check_list = []
         for box in self.input_box:
             check_list.append(
@@ -115,10 +124,12 @@ class BoardSize(Window):
         return (False if 'not ok' in check_list else True)
 
     def get_column_number(self):
+        # get column number
         if self.input_box_not_wrong() and self.input_box_not_active():
             return int(self.input_column.text)
 
     def get_row_number(self):
+        # get row number
         if self.input_box_not_wrong() and self.input_box_not_active():
             return int(self.input_row.text)
 
@@ -198,6 +209,9 @@ class BoardSize(Window):
 
 
 class InputBox:
+    """
+    InputBox class handles displaying and operating of input boxes.
+    """
 
     def __init__(self, rect, background_text='', font='comicsans'):
         self.rect = rect
@@ -264,12 +278,14 @@ class InputBox:
             LIGHT_GREY)
 
         if self.text == '':
+            # display background text
             screen.blit(
                 background_text,
                 (
                     self.rect.center[0] - background_text.get_width()/2,
                     self.rect.center[1] - background_text.get_height()/2))
         else:
+            # diplay input text
             screen.blit(
                 self.text_text,
                 (
