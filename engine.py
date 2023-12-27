@@ -55,11 +55,13 @@ class Engine:
                         game = Game(
                             self.board_size.get_row_number(),
                             self.board_size.get_column_number(),
-                            game_mode)
+                            game_mode,
+                            self.board_size.window.width,
+                            self.board_size.window.height)
                         game_running = True
 
-                    if game_running:
-                        game.get_mouse_input(event)
+                if game_running:
+                    game.get_mouse_input(event)
 
                 for box in self.board_size.input_box:
                     box.handle_events(event, 8, 30)

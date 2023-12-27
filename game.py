@@ -10,8 +10,8 @@ BLACK = (0, 0, 0)
 
 class Game(Window, Board):
 
-    def __init__(self, row, column, mode):
-        self.window = Window()
+    def __init__(self, row, column, mode, width, height):
+        self.window = Window(width, height)
         self.board = Board(row, column)
 
         self.mode = mode

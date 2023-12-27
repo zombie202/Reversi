@@ -7,11 +7,11 @@ class Window:
     Window class initializes window and displays backgroung image.
     """
 
-    def __init__(self):
+    def __init__(self, width=1200, height=700):
         pygame.init()
         pygame.display.set_caption('Reversi')
         # initialize window
-        self.WIN = pygame.display.set_mode((1200, 700), pygame.RESIZABLE)
+        self.WIN = pygame.display.set_mode((width, height), pygame.RESIZABLE)
         self.image = pygame.image.load(
             os.path.join('assets', 'background.png'))
 
