@@ -49,13 +49,17 @@ class Engine:
                     if self.board_size.back_button.collidepoint(mouse_pos):
                         board_running = False
                         menu_running = True
-                    if self.board_size.continue_button.collidepoint(mouse_pos):
+                    if not game_running and \
+                       self.board_size.continue_button.collidepoint(mouse_pos):
                         board_running = False
                         game = Game(
                             self.board_size.get_row_number(),
                             self.board_size.get_column_number(),
                             game_mode)
                         game_running = True
+
+                    if game_running:
+                        game.get_mouse_input(event)
 
                 for box in self.board_size.input_box:
                     box.handle_events(event, 8, 30)
