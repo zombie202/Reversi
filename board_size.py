@@ -202,10 +202,7 @@ class BoardSize(Window):
         if self.input_box_not_wrong() and self.input_box_not_active():
             self.window.WIN.blit(
                 self.continue_text,
-                (self.continue_button.x, self.continue_button.y)
-            )
-
-        pygame.display.update()
+                (self.continue_button.x, self.continue_button.y))
 
 
 class InputBox:

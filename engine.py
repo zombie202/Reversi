@@ -1,6 +1,7 @@
 import pygame
 from menu import Menu
 from board_size import BoardSize
+from game import Game
 
 
 class Engine:
@@ -32,24 +33,28 @@ class Engine:
                     # checks which mode player selected
                     # and proced to display board size window
                     if self.menu.multiplayer.collidepoint(mouse_pos):
-                        # game_mode = 'multi'
+                        game_mode = 'multi'
                         menu_running = False
                         board_running = True
                     if self.menu.solo.collidepoint(mouse_pos):
-                        # game_mode = 'solo'
+                        game_mode = 'solo'
                         menu_running = False
                         board_running = True
                     if self.menu.computer.collidepoint(mouse_pos):
-                        # game_mode = 'computer'
+                        game_mode = 'computer'
                         menu_running = False
                         board_running = True
-                    # checks if player wnt to continue or go back to menu
+                    # checks if player want to continue or go back to menu
                     # and proced to display game window
                     if self.board_size.back_button.collidepoint(mouse_pos):
                         board_running = False
                         menu_running = True
                     if self.board_size.continue_button.collidepoint(mouse_pos):
                         board_running = False
+                        game = Game(
+                            self.board_size.get_row_number(),
+                            self.board_size.get_column_number(),
+                            game_mode)
                         game_running = True
 
                 for box in self.board_size.input_box:
@@ -60,7 +65,9 @@ class Engine:
             if board_running:
                 self.board_size.display()
             if game_running:
-                pass
+                game.display()
+
+            pygame.display.update()
 
         pygame.quit()
 

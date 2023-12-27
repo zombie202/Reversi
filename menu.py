@@ -143,5 +143,3 @@ class Menu(Window):
         self.window.WIN.blit(
             self.button_text(BUTTON_3),
             (self.computer.x, self.computer.y))
-
-        pygame.display.update()
