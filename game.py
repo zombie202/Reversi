@@ -23,7 +23,8 @@ class Game(Window, Board):
         self.black = pygame.image.load(
             os.path.join('assets', 'czarny_pionek.png'))
 
-        self.baord_rect = self.board_rectangle()
+        self.board_rect = self.board_rectangle()
+        self.cell = ()
 
     def board_rectangle(self):
         return pygame.Rect(
@@ -40,49 +41,60 @@ class Game(Window, Board):
                mouse_pos_x < rect.left or \
                mouse_pos_y > rect.bottom or \
                mouse_pos_y < rect.top:
-                pass
+                print('outside')
             else:
-                pass
+                column = (mouse_pos_x - self.board_rect.left) // \
+                    self.cell.get_width()
+                row = (mouse_pos_y - self.board_rect.top) // \
+                    self.cell.get_height()
+                position = (row, column)
+                print(position)
 
     def display(self):
 
         self.window.display()
 
         board_rect = self.board_rectangle()
-        self.baord_rect.update(board_rect)
+        self.board_rect.update(board_rect)
         if self.board.row > self.board.column:
             self.cell = pygame.transform.scale(
                 self.cell_image,
                 (
-                    self.baord_rect.width/self.board.row,
-                    self.baord_rect.height/self.board.row))
+                    self.board_rect.width/self.board.row,
+                    self.board_rect.height/self.board.row))
         else:
             self.cell = pygame.transform.scale(
                 self.cell_image,
                 (
-                    self.baord_rect.width/self.board.column,
-                    self.baord_rect.height/self.board.column))
+                    self.board_rect.width/self.board.column,
+                    self.board_rect.height/self.board.column))
         # display board
         for col in range(self.board.column):
             for ro in range(self.board.row):
                 self.window.WIN.blit(
                     self.cell,
                     (
-                        self.baord_rect.x + self.cell.get_width()*col,
-                        self.baord_rect.y + self.cell.get_height()*ro))
+                        self.board_rect.x + self.cell.get_width()*col,
+                        self.board_rect.y + self.cell.get_height()*ro))
 
         # display pawns
         white = pygame.transform.scale(
             self.white,
             (self.cell.get_width() * 0.9, self.cell.get_height() * 0.9))
-        wh_x = self.baord_rect.x + (self.cell.get_width() - white.get_width())/2
-        wh_y = self.baord_rect.y + (self.cell.get_height() - white.get_height())/2
+        white_x = (
+            self.board_rect.x + (self.cell.get_width() - white.get_width())/2)
+        white_y = (
+            self.board_rect.y + (
+                self.cell.get_height() - white.get_height())/2)
 
         black = pygame.transform.scale(
             self.black,
             (self.cell.get_width() * 0.9, self.cell.get_height() * 0.9))
-        bl_x = self.baord_rect.x + (self.cell.get_width() - black.get_width())/2
-        bl_y = self.baord_rect.y + (self.cell.get_height() - black.get_height())/2
+        black_x = (
+            self.board_rect.x + (self.cell.get_width() - black.get_width())/2)
+        black_y = (
+            self.board_rect.y + (
+                self.cell.get_height() - black.get_height())/2)
 
         for column in range(self.board.column):
             for row in range(self.board.row):
@@ -90,11 +102,11 @@ class Game(Window, Board):
                     self.window.WIN.blit(
                         black,
                         (
-                            bl_x + self.cell.get_width()*column,
-                            bl_y + self.cell.get_height()*row))
+                            black_x + self.cell.get_width()*column,
+                            black_y + self.cell.get_height()*row))
                 if self.board.board[row][column] == WHITE:
                     self.window.WIN.blit(
                         white,
                         (
-                            wh_x + self.cell.get_width()*column,
-                            wh_y + self.cell.get_height()*row))
+                            white_x + self.cell.get_width()*column,
+                            white_y + self.cell.get_height()*row))
