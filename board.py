@@ -59,3 +59,28 @@ class Board:
                 places.append(position)
 
         return places
+
+    def count_pieces(self):
+        white = 0
+        black = 0
+        empty = 0
+        for a in range(self.row):
+            for b in range(self.column):
+                if self.board[a][b] == WHITE:
+                    white += 1
+                elif self.board[a][b] == BLACK:
+                    black += 1
+                else:
+                    empty += 1
+        return white, black, empty
+
+    def game_ended(self):
+        white, black, empty = self.count_pieces()
+
+        if white == 0 or black == 0 or empty == 0:
+            return True
+        elif self.get_valid_moves(BLACK) == [] and \
+                self.get_valid_moves(WHITE) == []:
+            return True
+        else:
+            return False
