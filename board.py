@@ -15,13 +15,14 @@ class Board:
         self.board[int(row/2)][int(column/2)] = BLACK
         self.valid_moves = []
 
+    # get possible moves player can make ↓
     def get_valid_moves(self, color):
         places = []
 
         for a in range(self.row):
             for b in range(self.column):
                 if self.board[a][b] == color:
-                    places = places + self.check_directions(a, b, color)
+                    places = places + self.check_move_direction(a, b, color)
 
         self.valid_moves = places
         return places
@@ -41,7 +42,7 @@ class Board:
                self.board[a][b] == EMPTY:
                 return (a, b)
 
-    def check_directions(self, row, column, color):
+    def check_move_direction(self, row, column, color):
         if color == WHITE:
             other = BLACK
         else:
@@ -59,6 +60,60 @@ class Board:
                 places.append(position)
 
         return places
+    # ↑
+
+    # flips pawns ↓
+    def flip(self, row, column, color):
+        if color == WHITE:
+            other_color = BLACK
+        else:
+            other_color = WHITE
+
+        for (x, y) in self.check_flip_direction(row, column, color):
+            a = row + x
+            b = column + y
+            while a >= 0 and b >= 0 and a < self.row and b < self.column:
+                if self.board[a][b] == other_color:
+                    self.board[a][b] = color
+                a += x
+                b += y
+
+    def check_for_color(self, row, column, row_add, col_add, color):
+
+        if color == WHITE:
+            other_color = BLACK
+        else:
+            other_color = WHITE
+
+        a = row + row_add
+        b = column + col_add
+        if a >= 0 and b >= 0 and a < self.row and b < self.column and \
+           self.board[a][b] == other_color:
+            a += row_add
+            b += col_add
+            while a >= 0 and b >= 0 and a < self.row and b < self.column and \
+                    self.board[a][b] == other_color:
+                a += row_add
+                b += col_add
+            if a >= 0 and b >= 0 and a < self.row and b < self.column and \
+               self.board[a][b] == color:
+                return (row_add, col_add)
+
+    def check_flip_direction(self, row, column, color):
+
+        directions = []
+
+        if row not in range(self.row) or column not in range(self.column):
+            return directions
+
+        for (x, y) in [(x, y) for x in range(-1, 2) for y in range(-1, 2)
+                       if (x, y) != (0, 0)]:
+            direction = self.check_for_color(row, column, x, y, color)
+            if direction:
+                directions.append(direction)
+
+        return directions
+    # ↑
 
     def count_pieces(self):
         white = 0
