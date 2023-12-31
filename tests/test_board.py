@@ -29,3 +29,10 @@ def test_valid_moves():
     board = Board(8, 8)
     a = board.get_valid_moves(BLACK)
     assert a == [(3, 5), (5, 3), (2, 4), (4, 2)]
+    assert board.valid_moves == [(3, 5), (5, 3), (2, 4), (4, 2)]
+
+
+def test_check_flip_directions():
+    board = Board(8, 8)
+    a = board.check_flip_direction(4, 2, BLACK)
+    assert a == [(0, 1)]
