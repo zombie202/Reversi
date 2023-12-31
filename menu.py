@@ -56,7 +56,7 @@ class Menu(Window):
         # return button height
         return self.button_text(button).get_height()
 
-    # creates rectangle, needed because of different window size
+    # creates rectangle, needed because of different window size ↓
     def multi_rect(self):
         # player vs player
         return pygame.Rect(
@@ -84,7 +84,7 @@ class Menu(Window):
             + 2*self.button_height(BUTTON_1),
             self.button_width(BUTTON_3),
             self.button_height(BUTTON_3))
-    # end of creating rectangles
+    # ↑
 
     @property
     def welcome_height(self):
