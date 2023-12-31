@@ -15,6 +15,12 @@ class Board:
         self.board[int(row/2)][int(column/2)] = BLACK
         self.valid_moves = []
 
+    def make_move(self, position, color):
+        self.get_valid_moves(color)
+        if position in self.valid_moves:
+            self.board[position[0]][position[1]] = color
+            self.flip(position[0], position[1], color)
+
     # get possible moves player can make ↓
     def get_valid_moves(self, color):
         places = []
