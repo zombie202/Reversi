@@ -79,6 +79,8 @@ class Board:
             a = row + x
             b = column + y
             while a >= 0 and b >= 0 and a < self.row and b < self.column:
+                if self.board[a][b] == color:
+                    break
                 if self.board[a][b] == other_color:
                     self.board[a][b] = color
                 a += x
@@ -139,9 +141,11 @@ class Board:
         white, black, empty = self.count_pieces()
 
         if white == 0 or black == 0 or empty == 0:
+            print('end')
             return True
         elif self.get_valid_moves(BLACK) == [] and \
                 self.get_valid_moves(WHITE) == []:
+            print('end')
             return True
         else:
             return False
