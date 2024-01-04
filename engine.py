@@ -72,6 +72,7 @@ class Engine:
                 self.board_size.display()
             if game_running:
                 game.display()
+                game.game()
 
             pygame.display.update()
 
