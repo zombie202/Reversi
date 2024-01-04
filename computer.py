@@ -3,10 +3,9 @@ BLACK = (0, 0, 0)
 
 
 class Computer:
-    def __init__(self, board, color, label):
+    def __init__(self, board, color):
         self.board = board
         self.color = color
-        self.label = label
         self.name = 'computer'
 
     def check_for_color(self, row, column, row_add, col_add, color):
@@ -45,7 +44,8 @@ class Computer:
         for (x, y) in [(x, y) for x in range(-1, 2) for y in range(-1, 2)
                        if (x, y) != (0, 0)]:
             direction = self.check_for_color(row, column, x, y, color)
-            directions += direction
+            if direction:
+                directions += direction
 
         return directions
 

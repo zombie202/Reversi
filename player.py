@@ -1,9 +1,8 @@
 class Player:
 
-    def __init__(self, board, color, label):
+    def __init__(self, board, color):
         self.board = board
         self.color = color
-        self.label = label
         self.name = 'player'
 
     def make_move(self, position):
