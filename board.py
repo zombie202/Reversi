@@ -141,11 +141,9 @@ class Board:
         white, black, empty = self.count_pieces()
 
         if white == 0 or black == 0 or empty == 0:
-            print('end')
             return True
         elif self.get_valid_moves(BLACK) == [] and \
                 self.get_valid_moves(WHITE) == []:
-            print('end')
             return True
         else:
             return False
