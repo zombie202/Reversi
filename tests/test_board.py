@@ -6,6 +6,14 @@ BLACK = (0, 0, 0)
 EMPTY = 'empty'
 
 
+def test_board():
+    board = Board(8, 8)
+    assert board.board[3][3] == BLACK
+    assert board.board[4][4] == BLACK
+    assert board.board[3][4] == WHITE
+    assert board.board[4][3] == WHITE
+
+
 def test_count_start_pieces():
     board = Board(8, 8)
     white, black, empty = board.count_pieces()
@@ -36,3 +44,9 @@ def test_check_flip_directions():
     board = Board(8, 8)
     a = board.check_flip_direction(4, 2, BLACK)
     assert a == [(0, 1)]
+
+
+def test_make_move():
+    board = Board(8, 8)
+    board.make_move((3, 5), BLACK)
+    assert board.board[3][5] == BLACK
