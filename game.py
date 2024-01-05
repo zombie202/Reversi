@@ -9,6 +9,7 @@ pygame.font.init()
 
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 BLACK_SCORE = 'BLACK:'
 WHITE_SCORE = 'WHITE:'
 BLACK_TURN = 'BLACK TURN'
@@ -47,12 +48,13 @@ class Game(Window, Board):
         self.mouse_input = ()
         self.turn = BLACK
         self.empty = self.board.count_pieces()[2]
+        self.restart = False
 
     def text(self, text):
-        score_font = pygame.font.SysFont(
+        text_font = pygame.font.SysFont(
             'comicsans',
             int(self.window.height/12))
-        return score_font.render(text, 1, WHITE)
+        return text_font.render(text, 1, WHITE)
 
     def text_width(self, text):
         return self.text(text).get_width()
@@ -96,7 +98,6 @@ class Game(Window, Board):
                mouse_pos_x < rect.left or \
                mouse_pos_y > rect.bottom or \
                mouse_pos_y < rect.top:
-                print('outside')
                 pass
             else:
                 column = (mouse_pos_x - self.board_rect.left) // \
@@ -105,7 +106,6 @@ class Game(Window, Board):
                     self.cell.get_height()
                 position = (row, column)
                 self.mouse_input = position
-                print(self.mouse_input)
 
     def displaying_board(self):
         board_rect = self.board_rectangle()
@@ -202,6 +202,40 @@ class Game(Window, Board):
                 self.text(WHITE_TURN),
                 (self.turn_rect.x, self.turn_rect.y))
 
+    def display_end(self):
+        white, black = self.board.count_pieces()[:2]
+        font = pygame.font.SysFont(
+            'comicsans',
+            int(self.window.height/6))
+        if white > black:
+            text = font.render('WHITE WINS', 1, WHITE)
+        elif black > white:
+            text = font.render("BLACK WINS", 1, WHITE)
+        else:
+            text = font.render("TIE", 1, WHITE)
+        rect = pygame.Rect(
+            (self.window.width - text.get_width())/2 - 10,
+            (self.window.height - text.get_height())/2 - 10,
+            text.get_width() + 20,
+            text.get_height() + 15)
+        continue_text = self.text('CONTINUE')
+        continue_rect = pygame.Rect(
+            self.window.width - continue_text.get_width() - 20,
+            self.window.height - continue_text.get_height() - 20,
+            continue_text.get_width(),
+            continue_text.get_height())
+        pygame.draw.rect(self.window.WIN, RED, rect)
+        self.window.WIN.blit(
+            text,
+            (rect.x + 10, rect.y + 10))
+        self.window.WIN.blit(
+            continue_text,
+            (continue_rect.x, continue_rect.y))
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pres = pygame.mouse.get_pressed()[0]
+        if continue_rect.collidepoint(mouse_pos) and mouse_pres:
+            self.restart = True
+
     def game(self):
         if not self.board.game_ended():
             if self.turn == BLACK:
@@ -237,3 +271,5 @@ class Game(Window, Board):
 
         self.display_points()
         self.display_turn()
+        if self.board.game_ended():
+            self.display_end()
