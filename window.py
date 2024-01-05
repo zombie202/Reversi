@@ -4,9 +4,9 @@ import os
 
 class Window:
     """
-    Window class initializes window and displays backgroung image.
+    Initializes window, display background image, return width
+    and height of the window
     """
-
     def __init__(self, width=1200, height=700):
         pygame.init()
         pygame.display.set_caption('Reversi')
@@ -17,12 +17,12 @@ class Window:
 
     @property
     def width(self):
-        # returns window width
+        """returns window width"""
         return pygame.display.get_window_size()[0]
 
     @property
     def height(self):
-        # returns window height
+        """returns window height"""
         return pygame.display.get_window_size()[1]
 
     def display(self):

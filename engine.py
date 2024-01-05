@@ -6,10 +6,9 @@ from game import Game
 
 class Engine:
     """
-    Engine class operates the main game loop,
-    and handles movement beetwen windows.
+    class operating main game loop, handling events
+    and switching beetwen windows
     """
-
     def __init__(self):
         self.menu = Menu()
         self.board_size = BoardSize()
@@ -18,6 +17,7 @@ class Engine:
         self.game_running = False
 
     def run(self):
+        """main game loop"""
         clock = pygame.time.Clock()
         run = True
         # initializes main game loop
@@ -82,11 +82,13 @@ class Engine:
         pygame.quit()
 
     def restart(self):
+        """restarts the game(goes back to main menu)"""
         self.menu_running = True
         self.board_running = False
         self.game_running = False
 
 
 def main():
+    """runs the game"""
     game = Engine()
     game.run()

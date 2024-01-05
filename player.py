@@ -1,5 +1,5 @@
 class Player:
-
+    """for given mouse input make move onto the board"""
     def __init__(self, board, color):
         self.board = board
         self.color = color

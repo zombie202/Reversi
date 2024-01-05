@@ -4,7 +4,10 @@ EMPTY = 'empty'
 
 
 class Board:
-
+    """
+    class for handling event on the board takes number of rows
+    and number of columns as parameters
+    """
     def __init__(self, row, column):
         self.row = row
         self.column = column
@@ -21,7 +24,7 @@ class Board:
             self.board[position[0]][position[1]] = color
             self.flip(position[0], position[1], color)
 
-    # get possible moves player can make ↓
+    """get possible moves player can make ↓"""
     def get_valid_moves(self, color):
         places = []
 
@@ -66,9 +69,9 @@ class Board:
                 places.append(position)
 
         return places
-    # ↑
+    "↑"
 
-    # flips pawns ↓
+    """flips pawns ↓"""
     def flip(self, row, column, color):
         if color == WHITE:
             other_color = BLACK
@@ -121,9 +124,10 @@ class Board:
                 directions.append(direction)
 
         return directions
-    # ↑
+    "↑"
 
     def count_pieces(self):
+        """return number of white, black and empty places on the board"""
         white = 0
         black = 0
         empty = 0
@@ -138,6 +142,7 @@ class Board:
         return white, black, empty
 
     def game_ended(self):
+        """checks if game has finished"""
         white, black, empty = self.count_pieces()
 
         if white == 0 or black == 0 or empty == 0:

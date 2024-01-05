@@ -11,10 +11,7 @@ BUTTON_3 = 'Computer vs Computer'
 
 
 class Menu(Window):
-    """
-    Menu class displays menu window.
-    """
-
+    """class for handling displaying the menu"""
     def __init__(self):
 
         pygame.font.init()
@@ -31,17 +28,18 @@ class Menu(Window):
         self.computer = self.computer_rect()
 
     def welcome_text(self):
+        """renders welcome text"""
         welcome_font = pygame.font.SysFont(
             'comicsans',
             int(self.window.height/5))
         return welcome_font.render(WELCOME, 1, WHITE)
 
     def middle(self, text):
-        # centers the text
+        """centers the text"""
         return ((self.window.width - text.get_width())/2)
 
     def button_text(self, text):
-        # initializes button font and text
+        """initializes button font and text"""
         button_font = pygame.font.SysFont(
             'comicsans',
             int(self.window.height/10))
@@ -49,14 +47,14 @@ class Menu(Window):
         return button_font.render(text, 1, WHITE)
 
     def button_width(self, button):
-        # return button width
+        """return button width"""
         return self.button_text(button).get_width()
 
     def button_height(self, button):
-        # return button height
+        """return button height"""
         return self.button_text(button).get_height()
 
-    # creates rectangle, needed because of different window size ↓
+    """creates rectangle, needed because of different window size ↓"""
     def multi_rect(self):
         # player vs player
         return pygame.Rect(
@@ -84,7 +82,7 @@ class Menu(Window):
             + 2*self.button_height(BUTTON_1),
             self.button_width(BUTTON_3),
             self.button_height(BUTTON_3))
-    # ↑
+    "↑"
 
     @property
     def welcome_height(self):
@@ -104,7 +102,7 @@ class Menu(Window):
                 - 3*self.button_height(BUTTON_1))/4
 
     def display(self):
-
+        """displays everything onto screen"""
         self.window.display()
 
         # displaying welcome text

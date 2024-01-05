@@ -17,7 +17,9 @@ WHITE_TURN = 'WHITE TURN'
 
 
 class Game(Window, Board):
-
+    """
+    class used for handling turns and displaying the game
+    """
     def __init__(self, row, column, mode, width, height):
         self.window = Window(width, height)
         self.board = Board(row, column)
@@ -51,15 +53,18 @@ class Game(Window, Board):
         self.restart = False
 
     def text(self, text):
+        """renders text"""
         text_font = pygame.font.SysFont(
             'comicsans',
             int(self.window.height/12))
         return text_font.render(text, 1, WHITE)
 
     def text_width(self, text):
+        """return text width"""
         return self.text(text).get_width()
 
     def text_height(self, text):
+        """returns text height"""
         return self.text(text).get_height()
 
     def board_rectangle(self):
@@ -69,6 +74,7 @@ class Game(Window, Board):
             self.window.height - self.window.height/20,
             self.window.height - self.window.height/20)
 
+    """creates rectangle, needed because of different window size ↓"""
     def black_score_rectangle(self):
         return pygame.Rect(
             self.board_rect.right + 50,
@@ -89,8 +95,13 @@ class Game(Window, Board):
             self.white_score_rect.bottom + 20,
             self.text_width(WHITE_TURN),
             self.text_height(WHITE_TURN))
+    "↑"
 
     def get_mouse_input(self, event):
+        """
+        gets mouse position and checks if player clicked square,
+        then calculates which square player clicked
+        """
         rect = self.board_rectangle()
         (mouse_pos_x, mouse_pos_y) = pygame.mouse.get_pos()
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -108,6 +119,7 @@ class Game(Window, Board):
                 self.mouse_input = position
 
     def displaying_board(self):
+        """displays board"""
         board_rect = self.board_rectangle()
         self.board_rect.update(board_rect)
         if self.board.row > self.board.column:
@@ -122,7 +134,6 @@ class Game(Window, Board):
                 (
                     self.board_rect.width/self.board.column,
                     self.board_rect.height/self.board.column))
-        # display board
         for col in range(self.board.column):
             for ro in range(self.board.row):
                 self.window.WIN.blit(
@@ -132,6 +143,7 @@ class Game(Window, Board):
                         self.board_rect.y + self.cell.get_height()*ro))
 
     def displaying_pawns(self):
+        """checks for placement of pawns and displays them"""
         white = pygame.transform.scale(
             self.white,
             (self.cell.get_width() * 0.9, self.cell.get_height() * 0.9))
@@ -166,6 +178,7 @@ class Game(Window, Board):
                             white_y + self.cell.get_height()*row))
 
     def display_points(self):
+        """displays points in real time"""
         # updating rectangles size
         white_score_rect = self.white_score_rectangle()
         self.white_score_rect.update(white_score_rect)
@@ -191,6 +204,7 @@ class Game(Window, Board):
             (self.black_score_rect.right + 10, self.black_score_rect.top))
 
     def display_turn(self):
+        """displays whose turn it is in real time"""
         turn_rect = self.turn_rectangle()
         self.turn_rect.update(turn_rect)
         if self.turn == BLACK:
@@ -203,6 +217,7 @@ class Game(Window, Board):
                 (self.turn_rect.x, self.turn_rect.y))
 
     def display_end(self):
+        """displays which player won and allows to restart game"""
         white, black = self.board.count_pieces()[:2]
         font = pygame.font.SysFont(
             'comicsans',
@@ -237,6 +252,7 @@ class Game(Window, Board):
             self.restart = True
 
     def game(self):
+        """do turns"""
         if not self.board.game_ended():
             if self.turn == BLACK:
                 if self.player1.name == 'player':
@@ -263,6 +279,7 @@ class Game(Window, Board):
                         self.empty -= 1
 
     def display(self):
+        """displays everything onto the screen"""
 
         self.window.display()
 

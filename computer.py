@@ -3,11 +3,16 @@ BLACK = (0, 0, 0)
 
 
 class Computer:
+    """class simulating other player"""
     def __init__(self, board, color):
         self.board = board
         self.color = color
         self.name = 'computer'
 
+    """
+    counts how many points would get for each possible move
+    and choses the best one ↓
+    """
     def check_for_color(self, row, column, row_add, col_add, color):
 
         if color == WHITE:
@@ -58,6 +63,8 @@ class Computer:
                 counter = count
                 position = (x, y)
         return position
+    "↑"
 
     def make_move(self):
+        """make move onto the board"""
         self.board.make_move(self.count_in_position(), self.color)
