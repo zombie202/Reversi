@@ -32,11 +32,6 @@ class BoardSize(Window):
             pygame.image.load(os.path.join('assets', 'back.png')),
             (self.back_width, self.back_height))
 
-        select_font = pygame.font.SysFont(
-            'comicsans',
-            int(self.window.height/5))
-        self.select_text = select_font.render(SELECT, 1, WHITE)
-
         back_font = pygame.font.SysFont(
             'comicsans',
             int(self.back_height * 1.5))
@@ -56,6 +51,12 @@ class BoardSize(Window):
         self.input_rect_row = self.input_row_rect()
         self.input_row = InputBox(self.input_rect_row, '8 - 30')
         self.input_box = [self.input_column, self.input_row]
+
+    def select_text(self):
+        select_font = pygame.font.SysFont(
+            'comicsans',
+            int(self.window.height/7))
+        return select_font.render(SELECT, 1, WHITE)
 
     # creates rectangle, needed because of different window size
     def back_rect(self):
@@ -79,7 +80,7 @@ class BoardSize(Window):
         height = self.window.height
         return pygame.Rect(
             (self.window.width - width/3)/2,
-            15 * height/130 + self.select_text.get_height() + height/10,
+            15 * height/130 + self.select_text().get_height() + height/10,
             width/3,
             width/3)
 
@@ -88,7 +89,7 @@ class BoardSize(Window):
         height = self.window.height
         return pygame.Rect(
             (width - width/15)/2,
-            height/13 + self.select_text.get_height() + height/20,
+            height/13 + self.select_text().get_height() + height/20,
             width/10,
             height/15)
 
@@ -139,8 +140,8 @@ class BoardSize(Window):
 
         # displaying select text
         self.window.WIN.blit(
-            self.select_text,
-            (self.middle(self.select_text), self.window.height/13))
+            self.select_text(),
+            (self.middle(self.select_text()), self.window.height/13))
 
         # updating rectangle size
         back_button = self.back_rect()
