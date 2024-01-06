@@ -257,26 +257,22 @@ class Game(Window, Board):
             if self.turn == BLACK:
                 if self.player1.name == 'player':
                     self.player1.make_move(self.mouse_input)
-                    if self.empty > self.board.count_pieces()[2]:
-                        self.turn = WHITE
-                        self.empty -= 1
                 else:
                     self.player1.make_move()
-                    if self.empty > self.board.count_pieces()[2]:
-                        self.turn = WHITE
-                        self.empty -= 1
+                if self.empty > self.board.count_pieces()[2] or \
+                   self.board.get_valid_moves(BLACK) == []:
+                    self.turn = WHITE
+                    self.empty -= 1
 
             if self.turn == WHITE:
                 if self.player2.name == 'player':
                     self.player2.make_move(self.mouse_input)
-                    if self.empty > self.board.count_pieces()[2]:
-                        self.turn = BLACK
-                        self.empty -= 1
                 else:
                     self.player2.make_move()
-                    if self.empty > self.board.count_pieces()[2]:
-                        self.turn = BLACK
-                        self.empty -= 1
+                if self.empty > self.board.count_pieces()[2] or \
+                   self.board.get_valid_moves(WHITE) == []:
+                    self.turn = BLACK
+                    self.empty -= 1
 
     def display(self):
         """displays everything onto the screen"""
