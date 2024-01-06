@@ -17,12 +17,6 @@ class Menu(Window):
         pygame.font.init()
         self.window = Window()
 
-        select_font = pygame.font.SysFont(
-            'comicsans',
-            int(self.window.height/14))
-
-        self.select_text = select_font.render(SELECT, 1, WHITE)
-
         self.multiplayer = self.multi_rect()
         self.solo = self.solo_rect()
         self.computer = self.computer_rect()
@@ -33,6 +27,12 @@ class Menu(Window):
             'comicsans',
             int(self.window.height/5))
         return welcome_font.render(WELCOME, 1, WHITE)
+
+    def select_text(self):
+        select_font = pygame.font.SysFont(
+            'comicsans',
+            int(self.window.height/14))
+        return select_font.render(SELECT, 1, WHITE)
 
     def middle(self, text):
         """centers the text"""
@@ -90,7 +90,7 @@ class Menu(Window):
 
     @property
     def select_height(self):
-        return self.select_text.get_height()
+        return self.select_text().get_height()
 
     @property
     def header(self):
@@ -112,9 +112,9 @@ class Menu(Window):
 
         # displaying select text
         self.window.WIN.blit(
-            self.select_text,
+            self.select_text(),
             (
-                self.middle(self.select_text),
+                self.middle(self.select_text()),
                 self.window.height/13 + self.welcome_height
                 + self.window.height/60))
 
