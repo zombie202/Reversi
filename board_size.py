@@ -17,9 +17,9 @@ CONTINUE = 'CONTINUE'
 class BoardSize(Window):
     """class displaying window allowing player to enter board size"""
 
-    def __init__(self):
+    def __init__(self, width, height):
 
-        self.window = Window()
+        self.window = Window(width, height)
 
         self.back_width = self.window.width/22
         self.back_height = self.window.height/13

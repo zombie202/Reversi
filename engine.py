@@ -11,7 +11,6 @@ class Engine:
     """
     def __init__(self):
         self.menu = Menu()
-        self.board_size = BoardSize()
         self.menu_running = True
         self.board_running = False
         self.game_running = False
@@ -20,7 +19,6 @@ class Engine:
         """main game loop"""
         clock = pygame.time.Clock()
         run = True
-        # initializes main game loop
         while run:
             clock.tick(60)
             mouse_pos = pygame.mouse.get_pos()
@@ -36,14 +34,23 @@ class Engine:
                         game_mode = 'multi'
                         self.menu_running = False
                         self.board_running = True
+                        self.board_size = BoardSize(
+                            self.menu.window.width,
+                            self.menu.window.height)
                     if self.menu.solo.collidepoint(mouse_pos):
                         game_mode = 'solo'
                         self.menu_running = False
                         self.board_running = True
+                        self.board_size = BoardSize(
+                            self.menu.window.width,
+                            self.menu.window.height)
                     if self.menu.computer.collidepoint(mouse_pos):
                         game_mode = 'computer'
                         self.menu_running = False
                         self.board_running = True
+                        self.board_size = BoardSize(
+                            self.menu.window.width,
+                            self.menu.window.height)
                     # checks if player want to continue or go back to menu
                     # and proced to display game window
                     if self.board_size.back_button.collidepoint(mouse_pos):
@@ -63,8 +70,9 @@ class Engine:
                 if self.game_running:
                     game.get_mouse_input(event)
 
-                for box in self.board_size.input_box:
-                    box.handle_events(event, 8, 30)
+                if self.board_running:
+                    for box in self.board_size.input_box:
+                        box.handle_events(event, 8, 30)
 
             if self.menu_running:
                 self.menu.display()
