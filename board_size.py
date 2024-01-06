@@ -30,6 +30,7 @@ class BoardSize(Window):
             (self.back_width, self.back_height))
 
         self.back_button = self.back_rect()
+        self.continue_button = self.continue_rect()
         self.board_show = self.board_rect()
 
         self.input_rect_column = self.input_column_rect()
@@ -37,6 +38,8 @@ class BoardSize(Window):
         self.input_rect_row = self.input_row_rect()
         self.input_row = InputBox(self.input_rect_row, '8 - 30')
         self.input_box = [self.input_column, self.input_row]
+
+        self.next = False
 
     def back_text(self):
         back_font = pygame.font.SysFont(
@@ -202,10 +205,12 @@ class BoardSize(Window):
 
         # displaying continue button
         if self.input_box_not_wrong() and self.input_box_not_active():
+            self.next = True
             continue_button = self.continue_rect()
+            self.continue_button.update(continue_button)
             self.window.WIN.blit(
                 self.continue_text(),
-                (continue_button.x, continue_button.y))
+                (self.continue_button.x, self.continue_button.y))
 
 
 class InputBox:

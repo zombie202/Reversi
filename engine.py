@@ -49,7 +49,7 @@ class Engine:
                     if self.board_size.back_button.collidepoint(mouse_pos):
                         self.board_running = False
                         self.menu_running = True
-                    if not self.game_running and \
+                    if not self.game_running and self.board_size.next and \
                        self.board_size.continue_button.collidepoint(mouse_pos):
                         self.board_running = False
                         game = Game(
