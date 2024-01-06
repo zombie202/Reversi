@@ -29,18 +29,7 @@ class BoardSize(Window):
             pygame.image.load(os.path.join('assets', 'back.png')),
             (self.back_width, self.back_height))
 
-        back_font = pygame.font.SysFont(
-            'comicsans',
-            int(self.back_height * 1.5))
-        self.back_text = back_font.render(BACK, 1, WHITE)
-
-        continue_font = pygame.font.SysFont(
-            'comicsans',
-            int(self.back_height * 1.5))
-        self.continue_text = continue_font.render(CONTINUE, 1, WHITE)
-
         self.back_button = self.back_rect()
-        self.continue_button = self.continue_rect()
         self.board_show = self.board_rect()
 
         self.input_rect_column = self.input_column_rect()
@@ -48,6 +37,18 @@ class BoardSize(Window):
         self.input_rect_row = self.input_row_rect()
         self.input_row = InputBox(self.input_rect_row, '8 - 30')
         self.input_box = [self.input_column, self.input_row]
+
+    def back_text(self):
+        back_font = pygame.font.SysFont(
+            'comicsans',
+            int(self.back_height * 1.5))
+        return back_font.render(BACK, 1, WHITE)
+
+    def continue_text(self):
+        continue_font = pygame.font.SysFont(
+            'comicsans',
+            int(self.back_height * 1.5))
+        return continue_font.render(CONTINUE, 1, WHITE)
 
     def select_text(self):
         """render select text"""
@@ -61,17 +62,17 @@ class BoardSize(Window):
         width = self.window.width
         height = self.window.height
         return pygame.Rect(
-            width - width/60 - self.back_text.get_width() - self.back_width,
+            width - width/60 - self.back_text().get_width() - self.back_width,
             height - width/60 - self.back_height,
-            self.back_width + self.back_text.get_width(),
+            self.back_width + self.back_text().get_width(),
             self.back_height)
 
     def continue_rect(self):
         return pygame.Rect(
-            self.back_button.right - self.continue_text.get_width(),
-            self.back_button.top - self.continue_text.get_height(),
-            self.continue_text.get_width(),
-            self.continue_text.get_height())
+            self.back_button.right - self.continue_text().get_width(),
+            self.back_button.top - self.continue_text().get_height(),
+            self.continue_text().get_width(),
+            self.continue_text().get_height())
 
     def board_rect(self):
         width = self.window.width
@@ -182,7 +183,7 @@ class BoardSize(Window):
 
         # displaying back text
         self.window.WIN.blit(
-            self.back_text,
+            self.back_text(),
             (self.back_button.x + self.back_width, self.back_button.y))
 
         # updating rectangle size
@@ -199,13 +200,12 @@ class BoardSize(Window):
 
         self.display_board_preview()
 
-        # updating rectangle size and displaying continue button
-        continue_rect = self.continue_rect()
-        self.continue_button.update(continue_rect)
+        # displaying continue button
         if self.input_box_not_wrong() and self.input_box_not_active():
+            continue_button = self.continue_rect()
             self.window.WIN.blit(
-                self.continue_text,
-                (self.continue_button.x, self.continue_button.y))
+                self.continue_text(),
+                (continue_button.x, continue_button.y))
 
 
 class InputBox:
