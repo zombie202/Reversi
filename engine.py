@@ -11,6 +11,7 @@ class Engine:
     """
     def __init__(self):
         self.menu = Menu()
+        # self.board_size = BoardSize()
         self.menu_running = True
         self.board_running = False
         self.game_running = False
@@ -32,52 +33,43 @@ class Engine:
                     # and proced to display board size window
                     if self.menu.multiplayer.collidepoint(mouse_pos):
                         game_mode = 'multi'
-                        self.menu_running = False
-                        self.board_running = True
-                        self.board_size = BoardSize(
-                            self.menu.window.width,
-                            self.menu.window.height)
+                        self.menu_to_board()
+                        board_size = self.make_board_size()
                     if self.menu.solo.collidepoint(mouse_pos):
                         game_mode = 'solo'
-                        self.menu_running = False
-                        self.board_running = True
-                        self.board_size = BoardSize(
-                            self.menu.window.width,
-                            self.menu.window.height)
+                        self.menu_to_board()
+                        board_size = self.make_board_size()
                     if self.menu.computer.collidepoint(mouse_pos):
                         game_mode = 'computer'
-                        self.menu_running = False
-                        self.board_running = True
-                        self.board_size = BoardSize(
-                            self.menu.window.width,
-                            self.menu.window.height)
+                        self.menu_to_board()
+                        board_size = self.make_board_size()
                     # checks if player want to continue or go back to menu
                     # and proced to display game window
-                    if self.board_size.back_button.collidepoint(mouse_pos):
+                    if board_size.back_button.collidepoint(mouse_pos):
                         self.board_running = False
                         self.menu_running = True
-                    if not self.game_running and self.board_size.next and \
-                       self.board_size.continue_button.collidepoint(mouse_pos):
+                    if not self.game_running and board_size.next and \
+                       board_size.continue_button.collidepoint(mouse_pos):
                         self.board_running = False
                         game = Game(
-                            self.board_size.get_row_number(),
-                            self.board_size.get_column_number(),
+                            board_size.get_row_number(),
+                            board_size.get_column_number(),
                             game_mode,
-                            self.board_size.window.width,
-                            self.board_size.window.height)
+                            board_size.window.width,
+                            board_size.window.height)
                         self.game_running = True
 
                 if self.game_running:
                     game.get_mouse_input(event)
 
                 if self.board_running:
-                    for box in self.board_size.input_box:
+                    for box in board_size.input_box:
                         box.handle_events(event, 8, 30)
 
             if self.menu_running:
                 self.menu.display()
             if self.board_running:
-                self.board_size.display()
+                board_size.display()
             if self.game_running:
                 game.display()
                 game.game()
@@ -89,11 +81,24 @@ class Engine:
 
         pygame.quit()
 
+    def menu_to_board(self):
+        self.menu_running = False
+        self.board_running = True
+
+    def make_board_size(self):
+        return BoardSize(
+            self.menu.window.width,
+            self.menu.window.height)
+
+    # def colapse_rect(self):
+    #     nul = pygame.Rect(0, 0, 0, 0)
+    #     self.menu.multiplayer.update(nul)
+    #     self.menu.solo.update(nul)
+    #     self.menu.computer.update(nul)
+
     def restart(self):
         """restarts the game(goes back to main menu)"""
-        self.menu_running = True
-        self.board_running = False
-        self.game_running = False
+        self.__init__()
 
 
 def main():
