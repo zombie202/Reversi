@@ -261,6 +261,7 @@ class Game(Window, Board):
                     self.player1.make_move()
                 if self.empty > self.board.count_pieces()[2] or \
                    self.board.get_valid_moves(BLACK) == []:
+                    pygame.time.Clock().tick(30)
                     self.turn = WHITE
                     self.empty -= 1
 
@@ -271,6 +272,7 @@ class Game(Window, Board):
                     self.player2.make_move()
                 if self.empty > self.board.count_pieces()[2] or \
                    self.board.get_valid_moves(WHITE) == []:
+                    pygame.time.Clock().tick(30)
                     self.turn = BLACK
                     self.empty -= 1
 

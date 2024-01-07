@@ -38,7 +38,9 @@ Player - Wykonuje ruch gracza
 Window - Inicjalizuje okno oraz wyświetla obraz w tle. Zwraca aktualne wymiary okna jako, że gra jest dostosowana do grania na różnej wielkości okienkach
 
 Instrukcja:
-Należy uruchomić program z pliku "main". Należy jednak mieć zainstalowaną bibliotekę pygame oraz os.
+Należy uruchomić program z pliku "main". Należy jednak mieć zainstalowaną bibliotekę pygame oraz os. Dla rozgrywki komputer-komputer można zmienić odstęp
+pomiędzy ruchami poszczególnych komputerów odszukując w klasie Game metody game i zmieniając wartość x w pygame.time.Clock().tick(x).
+Im bliżej 60 tym szybciej będą się ruchy wykonywać, im bliżej zera tym będzie większy odstęp pomiędzy ruchami.
 
 Podsumowanie:
 Zrobienie gry było większym wyzwaniem niż mi się z początku wydawało. Największym wyzwaniem była pętla gry i decyzje jakie metody w niej wywoływać
