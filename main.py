@@ -1,5 +1,5 @@
-from game import Game
+from engine import main
 
 
 if __name__ == "__main__":
-    Game()
+    main()
