@@ -52,10 +52,7 @@ class Board:
                 return (a, b)
 
     def check_move_direction(self, row, column, color):
-        if color == WHITE:
-            other = BLACK
-        else:
-            other = WHITE
+        other = set_other_color(color)
 
         places = []
 
@@ -73,10 +70,7 @@ class Board:
 
     """flips pawns ↓"""
     def flip(self, row, column, color):
-        if color == WHITE:
-            other_color = BLACK
-        else:
-            other_color = WHITE
+        other_color = set_other_color(color)
 
         for (x, y) in self.check_flip_direction(row, column, color):
             a = row + x
@@ -91,10 +85,7 @@ class Board:
 
     def check_for_color(self, row, column, row_add, col_add, color):
 
-        if color == WHITE:
-            other_color = BLACK
-        else:
-            other_color = WHITE
+        other_color = set_other_color(color)
 
         a = row + row_add
         b = column + col_add
@@ -152,3 +143,11 @@ class Board:
             return True
         else:
             return False
+
+
+def set_other_color(color):
+    if color == WHITE:
+        other_color = BLACK
+    else:
+        other_color = WHITE
+    return other_color

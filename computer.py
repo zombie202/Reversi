@@ -1,3 +1,6 @@
+from board import set_other_color
+
+
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 
@@ -15,10 +18,7 @@ class Computer:
     """
     def check_for_color(self, row, column, row_add, col_add, color):
 
-        if color == WHITE:
-            other_color = BLACK
-        else:
-            other_color = WHITE
+        other_color = set_other_color(color)
 
         count = 0
         a = row + row_add
